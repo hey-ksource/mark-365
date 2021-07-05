@@ -1,9 +1,7 @@
-<script>
-  import Input from 'src/components/input'
-  import Button from 'src/components/button'
+<script lang="ts">
+  import IDB from 'src/app/idb';
 </script>
 
-<div>
-  <Input />
-  <Button />
-</div>
+<template>
+  <IDB />
+</template>

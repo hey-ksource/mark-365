@@ -1,2 +1,0 @@
-
-type fn = () => void;

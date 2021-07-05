@@ -1,6 +1,9 @@
 <script lang="ts">
-  import Template from './template.svelte'
-  const label:string = '按钮'
+  import Button from 'src/components/button/view.svelte';
+  import { handleClick } from 'src/components/button/controller.ts';
+  export let onClick: fn = handleClick;
 </script>
 
-<Template label={label} />
+<Button {onClick}>
+  <slot>按钮</slot>
+</Button>

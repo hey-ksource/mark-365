@@ -15,7 +15,7 @@ module.exports = {
     alias: {
       src: resolve('src')
     },
-    extensions: ['.ts', '.svelte', '.js']
+    extensions: ['.ts', '.js', '.svelte']
   },
   module: {
     rules: [
@@ -37,7 +37,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(js|ts)$/,
+        test: /\.(ts)$/,
         exclude: /node_modules/,
         use: [
           {
