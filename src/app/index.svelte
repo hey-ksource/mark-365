@@ -1,7 +1,9 @@
 <script lang="ts">
-  import IDB from 'src/app/idb';
+  // import IDB from 'src/app/idb';
+  import MarkTable from 'src/app/mark-table';
 </script>
 
-<template>
-  <IDB />
-</template>
+<slot>
+  <!-- <IDB /> -->
+  <MarkTable />
+</slot>

@@ -1,9 +1,24 @@
 <script lang="ts">
-  import Button from 'src/components/button/view.svelte';
-  import { handleClick } from 'src/components/button/controller.ts';
-  export let onClick: fn = handleClick;
+  import { noop } from 'src/utils/default-value.ts';
+  export let onClick = noop;
 </script>
 
-<Button {onClick}>
-  <slot>按钮</slot>
-</Button>
+<template>
+  <div class="button" on:click={onClick}>
+    <slot>按钮</slot>
+  </div>
+</template>
+
+<style lang="css">
+  .button {
+    display: inline-block;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 8px 16px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .button:hover {
+    background-color: #ccc;
+  }
+</style>

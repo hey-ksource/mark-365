@@ -13,7 +13,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      src: resolve('src')
+      src: resolve('src'),
+      assets: resolve('assets')
     },
     extensions: ['.ts', '.js', '.svelte']
   },
@@ -21,7 +22,6 @@ module.exports = {
     rules: [
       {
         test: /\.(svelte)$/,
-        exclude: /node_modules/,
         use: [
           {
             loader: 'babel-loader',
@@ -37,7 +37,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(ts)$/,
+        test: /\.(ts|js)$/,
         exclude: /node_modules/,
         use: [
           {
@@ -45,6 +45,10 @@ module.exports = {
             options: { presets: ['@babel/preset-flow'] }
           }
         ]
+      },
+      {
+        test: /\.(jpg|png)$/,
+        loader: 'url-loader'
       },
       {
         test: /\.(css)$/,

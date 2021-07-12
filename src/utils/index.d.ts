@@ -1,6 +1,4 @@
-type fn = (arg?: any) => void;
-
 declare module 'src/utils/default-value.ts' {
-  const noop: fn;
+  const noop: () => void;
   export { noop };
 }

@@ -1,1 +1,1 @@
-export const noop:(arg?: any) => void = () =>  {}
+export const noop: () => void = () => {};
