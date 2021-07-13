@@ -8,7 +8,6 @@
     getRecordList
   } from 'src/app/mark-table/row.ts';
   import Record from './record.svelte';
-  import Button from 'src/components/button';
 
   let rowList: Array<IMark[]> = [];
   let recordList: IMark[] = [];
