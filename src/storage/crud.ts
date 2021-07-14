@@ -1,7 +1,8 @@
 import idb from 'src/storage/idb';
+import { storeNameMap } from 'src/storage/config';
 
-async function addItem(data: IStorageData): Promise<void> {
-  const objectStore = await idb.getObjectStore();
+async function addItem(storeName: string, data: IStorageData): Promise<void> {
+  const objectStore = await idb.getObjectStore(storeNameMap.get(storeName));
   const request = objectStore.add(data);
 
   return new Promise((resolve, reject) => {
@@ -17,10 +18,11 @@ async function addItem(data: IStorageData): Promise<void> {
 }
 
 async function getPrimaryKey(
-  partialData: Partial<IStorageData>
+  storeName: string,
+  partialData: { [propertyName: string]: string | number }
 ): Promise<number> {
   const key = Object.keys(partialData)[0];
-  const objectStore = await idb.getObjectStore();
+  const objectStore = await idb.getObjectStore(storeNameMap.get(storeName));
   const index = objectStore.index(key);
   const keyRequest = index.getKey(partialData[key]);
   return new Promise((resolve, reject) => {
@@ -37,10 +39,11 @@ async function getPrimaryKey(
 }
 
 async function getItem(
-  partialData: Partial<IStorageData>
+  storeName: string,
+  partialData: { [propertyName: string]: string | number }
 ): Promise<IStorageData> {
-  const primaryKey = await getPrimaryKey(partialData);
-  const objectStore = await idb.getObjectStore();
+  const primaryKey = await getPrimaryKey(storeName, partialData);
+  const objectStore = await idb.getObjectStore(storeNameMap.get(storeName));
   const request = objectStore.get(primaryKey);
 
   return new Promise((resolve, reject) => {
@@ -56,8 +59,11 @@ async function getItem(
   });
 }
 
-async function deleteItem(primaryKey: number): Promise<void> {
-  const objectStore = await idb.getObjectStore();
+async function deleteItem(
+  storeName: string,
+  primaryKey: number
+): Promise<void> {
+  const objectStore = await idb.getObjectStore(storeNameMap.get(storeName));
   const request = objectStore.delete(primaryKey);
 
   return new Promise((resolve, reject) => {
@@ -73,10 +79,11 @@ async function deleteItem(primaryKey: number): Promise<void> {
 }
 
 async function updateItem(
-  data: IStorageData,
+  storeName: string,
+  data: { [propertyName: string]: string | number },
   primaryKey: number
 ): Promise<void> {
-  const objectStore = await idb.getObjectStore();
+  const objectStore = await idb.getObjectStore(storeNameMap.get(storeName));
   const request = objectStore.put(data, primaryKey);
 
   return new Promise((resolve, reject) => {
@@ -91,8 +98,8 @@ async function updateItem(
   });
 }
 
-async function getAll(): Promise<IStorageData[]> {
-  const objectStore = await idb.getObjectStore();
+async function getAll(storeName: string): Promise<IStorageData[]> {
+  const objectStore = await idb.getObjectStore(storeNameMap.get(storeName));
   const request = objectStore.openCursor();
   const result: IStorageData[] = [];
 
@@ -115,7 +122,6 @@ async function getAll(): Promise<IStorageData[]> {
     };
   });
 }
-
 const crud = {
   addItem,
   getItem,

@@ -1,4 +1,5 @@
 @import "./var.css";
+@import "./smui-theme.css";
 body {
   margin: 0;
   padding: 0;

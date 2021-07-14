@@ -1,5 +1,5 @@
-const dbName: string = 'mark-database';
-const storeName: string = '365-mark';
+import { dbName, storeNameMap } from 'src/storage/config';
+
 let db: IDBDatabase;
 
 function initIDB(): Promise<IDBDatabase> {
@@ -23,19 +23,29 @@ function initIDB(): Promise<IDBDatabase> {
     request.onupgradeneeded = function (e: Event) {
       // @ts-ignore
       db = e.target.result;
-      if (!db.objectStoreNames.contains(storeName)) {
-        objectStore = db.createObjectStore(storeName, {
+
+      if (!db.objectStoreNames.contains(storeNameMap.get('mark-365'))) {
+        objectStore = db.createObjectStore(storeNameMap.get('mark-365'), {
           autoIncrement: true
         });
         objectStore.createIndex('markId', 'markId', { unique: true });
+      }
+
+      if (!db.objectStoreNames.contains(storeNameMap.get('mark-config'))) {
+        objectStore = db.createObjectStore(storeNameMap.get('mark-config'), {
+          autoIncrement: true
+        });
+        objectStore.createIndex('name', 'name', { unique: true });
       }
     };
   });
 }
 
-async function getObjectStore(): Promise<IDBObjectStore> {
+async function getObjectStore(name: string): Promise<IDBObjectStore> {
   const db: IDBDatabase = await initIDB();
-  return db.transaction([storeName], 'readwrite').objectStore(storeName);
+  return db
+    .transaction([storeNameMap.get(name)], 'readwrite')
+    .objectStore(storeNameMap.get(name));
 }
 
 const idb = { initIDB, getObjectStore };

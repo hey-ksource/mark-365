@@ -8,3 +8,10 @@ declare module 'src/app/*' {
 declare module 'src/components/*' {
   export default SvelteComponent;
 }
+
+declare module '@smui/*' {
+  const Label: any;
+  const Segment: any;
+  export { Label, Segment };
+  export default SvelteComponent;
+}

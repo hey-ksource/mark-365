@@ -1,26 +1,18 @@
-import crud from 'src/storage/crud';
+import mark365 from 'src/storage/mark-365';
+import markConfig from 'src/storage/mark-config';
 import idb from 'src/storage/idb';
 
-const addItem = crud.addItem;
-const getItem = crud.getItem;
 const init = idb.initIDB;
-const getAll = crud.getAll;
-const deleteItem = async (markId: string) => {
-  const primaryKey = await crud.getPrimaryKey({ markId });
-  return crud.deleteItem(primaryKey);
+
+async function clear() {
+  mark365.clear();
+  markConfig.clear();
+}
+
+const storage = {
+  mark365,
+  markConfig,
+  init,
+  clear
 };
-
-const updateItem = async (mark: IMark): Promise<void> => {
-  const primaryKey = await crud.getPrimaryKey({ markId: mark.markId });
-  const storageMark = Object.keys(mark)
-    .filter(key => key !== 'id')
-    .reduce((acc, key) => {
-      acc[key] = mark[key];
-      return acc;
-    }, {});
-
-  return crud.updateItem(storageMark, primaryKey);
-};
-
-const storage = { addItem, getItem, deleteItem, updateItem, getAll, init };
 export default storage;

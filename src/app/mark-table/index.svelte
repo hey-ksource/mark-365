@@ -1,54 +1,56 @@
 <script lang="ts">
-  import dayjs from 'dayjs';
-  import storage from 'src/storage';
-  import Table from './table.svelte';
+  import Guide from './components/guide/index.svelte';
+  import TableRecord from './table-record.svelte';
+  import Loading from './components/loading.svelte';
   import {
+    autoMark,
     initRowList,
     getRowList,
-    getRecordList
-  } from 'src/app/mark-table/row.ts';
-  import Record from './record.svelte';
+    getRecordList,
+    setConfig
+  } from 'src/app/mark-table/controller';
+  import Button from '@smui/button';
 
   let rowList: Array<IMark[]> = [];
-  let recordList: IMark[] = [];
-  const initTable = async () => {
+  let recordList: IMark[];
+  let loading = true;
+  let step = 1;
+  let showAutoMark = false;
+
+  const init = async () => {
     rowList = await initRowList();
     recordList = await getRecordList();
   };
-  const refresh = async () => {
+  const getData = async () => {
     rowList = await getRowList();
     recordList = await getRecordList();
+    loading = false;
+  };
+  const seleteStep = (value: number) => {
+    step = value;
   };
 
-  const handleMark = async (cell: IMark) => {
-    if (cell.isMarked) return;
-    const date = dayjs().format('YYYY-MM-DD');
-    const message = `打卡: ${date} 存入 ${cell.money} 元`;
-
-    if (window.confirm(message)) {
-      const mark: IMark = {
-        ...cell,
-        isMarked: true,
-        date
-      };
-
-      await storage.updateItem(mark);
-      refresh();
-    }
+  const onStart = async () => {
+    loading = true;
+    await setConfig({ step });
+    await init();
+    loading = false;
   };
 
-  initTable();
+  getData();
 </script>
 
+{#if showAutoMark}<Button on:click={autoMark}>补卡</Button>{/if}
+
 <div class="content">
-  <div class="mark-table-container">
-    <div class="table-container">
-      <Table {rowList} onClickCell={handleMark} />
-    </div>
-  </div>
-  <div class="record-list-container">
-    <Record {recordList} />
-  </div>
+  {#if loading}
+    <Loading />
+  {/if}
+  {#if rowList.length === 0}
+    <Guide onSelete={seleteStep} {onStart} />
+  {:else}
+    <TableRecord {rowList} {recordList} {getData} />
+  {/if}
 </div>
 
 <style>
@@ -58,19 +60,5 @@
     padding: 20px;
     width: 1366px;
     height: 768px;
-  }
-  .mark-table-container {
-    flex: 1;
-  }
-  .table-container {
-    width: 100%;
-    height: 100%;
-  }
-  .record-list-container {
-    flex: 0 0 230px;
-    margin-left: 20px;
-    padding-right: 10px;
-    height: 100%;
-    overflow: auto;
   }
 </style>

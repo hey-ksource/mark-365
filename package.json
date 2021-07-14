@@ -11,7 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "@smui/button": "^4.2.0",
+    "@smui/circular-progress": "^4.2.0",
+    "@smui/common": "^4.2.0",
     "@smui/dialog": "^4.2.0",
+    "@smui/form-field": "^4.2.0",
+    "@smui/radio": "^4.2.0",
+    "@smui/segmented-button": "^4.2.0",
     "@smui/tooltip": "^4.2.0",
     "dayjs": "^1.10.6",
     "svelte": "^3.38.3",
