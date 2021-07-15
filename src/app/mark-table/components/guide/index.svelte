@@ -20,9 +20,14 @@
       value: 1
     }
   ];
-  let selectedStep = options[2];
+  let selectedStep: IObj = options[2];
   $: step = selectedStep.value;
   $: total = ((step + step * 365) * 365) / 2;
+
+  const handleSelect = (segment: IObj) => {
+    selectedStep = segment;
+    onSelete(segment.value);
+  };
 </script>
 
 <div class="guide-container">
@@ -36,7 +41,7 @@
     >
       <Segment
         {segment}
-        on:click={() => onSelete(segment.value)}
+        on:click={() => handleSelect(segment)}
         title={segment.value}
       >
         <Label>{segment.label}</Label>
