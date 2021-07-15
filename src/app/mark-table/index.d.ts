@@ -1,3 +1,11 @@
+interface IStyle {
+  [key: string]: string;
+}
+interface ILrc {
+  style: IStyle;
+  lrc: string;
+}
+
 declare module 'src/app/mark-table/controller' {
   const initRowList: () => IMark[][];
   const getRowList: () => Promise<IMark[][]>;
@@ -19,13 +27,13 @@ declare module 'src/app/mark-table/controller' {
     autoMark
   };
 }
-declare module 'src/app/mark-table/available-cell-config.ts' {
+declare module 'src/app/mark-table/config' {
   const availableCellRangeListMap: Map<number, number[][]>;
 
-  export default availableCellRangeListMap;
+  export { availableCellRangeListMap };
 }
 
-declare module 'src/app/mark-table/utils.ts' {
+declare module 'src/app/mark-table/utils' {
   const createRowList: (step?: number) => Array<IMark[]>;
 
   export { createRowList };

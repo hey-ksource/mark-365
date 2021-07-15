@@ -1,4 +1,4 @@
-const availableCellRangeListMap: Map<number, number[][]> = new Map([
+export const availableCellRangeListMap: Map<number, number[][]> = new Map([
   [
     0,
     [
@@ -46,5 +46,3 @@ const availableCellRangeListMap: Map<number, number[][]> = new Map([
   [20, [[11, 13]]],
   [21, [[12, 12]]]
 ]);
-
-export default availableCellRangeListMap;

@@ -1,7 +1,7 @@
 <script lang="ts">
   import Guide from './components/guide/index.svelte';
   import TableRecord from './table-record.svelte';
-  import Loading from './components/loading.svelte';
+  import Loading from 'src/components/loading.svelte';
   import {
     autoMark,
     initRowList,
@@ -37,12 +37,19 @@
     loading = false;
   };
 
+  const onClickAutoMark = async () => {
+    loading = true;
+    await autoMark();
+    await getData();
+    loading = false;
+  };
+
   getData();
 </script>
 
-{#if showAutoMark}<Button on:click={autoMark}>补卡</Button>{/if}
+{#if showAutoMark}<Button on:click={onClickAutoMark}>补卡</Button>{/if}
 
-<div class="content">
+<div class="mark-table-container">
   {#if loading}
     <Loading />
   {/if}
@@ -54,11 +61,9 @@
 </div>
 
 <style>
-  .content {
+  .mark-table-container {
     display: flex;
     margin: 0 auto;
-    padding: 20px;
-    width: 1366px;
     height: 768px;
   }
 </style>

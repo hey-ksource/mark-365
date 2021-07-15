@@ -3,7 +3,7 @@
   export let onClickCell: (cell: IMark) => void;
 </script>
 
-<template>
+<slot>
   <div class="mark-table">
     {#each rowList as row, r}
       <div class="row">
@@ -24,7 +24,7 @@
       </div>
     {/each}
   </div>
-</template>
+</slot>
 
 <style>
   .mark-table {

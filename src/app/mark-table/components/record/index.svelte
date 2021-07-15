@@ -3,11 +3,13 @@
   import Button, { Label } from '@smui/button';
   import ProcessBar from './process-bar.svelte';
   import { getConfig } from 'src/app/mark-table/controller';
+  import Dialog from 'src/components/dialog.svelte';
   export let recordList: IMark[] = [];
-  export let destroy = () => {};
+  export let onDestory = () => {};
 
   let step = 1;
-
+  let dialogOpen = false;
+  let message: string = null;
   $: list = recordList.sort((a, b) => {
     if (b.date > a.date) {
       return 1;
@@ -28,6 +30,15 @@
   const init = async () => {
     const result = await getConfig('step');
     step = Number(result);
+  };
+
+  const onClickDestory = () => {
+    message = '确定删号重练？';
+    dialogOpen = true;
+  };
+  const onClose = () => {
+    message = null;
+    dialogOpen = false;
   };
   init();
 </script>
@@ -53,10 +64,13 @@
     </div>
   {/each}
   <div class="btn-block">
-    <Button on:click={destroy}>
+    <Button on:click={onClickDestory}>
       <Label>删号重练</Label>
     </Button>
   </div>
+  <Dialog open={dialogOpen} onOk={onDestory} {onClose}>
+    <div>{message}</div>
+  </Dialog>
 </div>
 
 <style>

@@ -2,22 +2,39 @@
   import Table from './components/table/index.svelte';
   import { destroy, handleMark } from 'src/app/mark-table/controller';
   import Record from './components/record/index.svelte';
+  import Dialog from 'src/components/dialog.svelte';
+  import dayjs from 'dayjs';
 
   export let rowList: Array<IMark[]> = [];
   export let recordList: IMark[] = [];
   export let getData = () => {};
+  let curCell: IMark = null;
+  let dialogOpen = false;
+  let message = '';
 
-  const onClickCell = async (cell: IMark) => {
-    await handleMark(cell);
+  const onClickCell = (cell: IMark) => {
+    if (cell.isMarked) return;
+
+    curCell = cell;
+    message = `${date} 存 ¥ ${curCell?.money}`;
+    dialogOpen = true;
+  };
+
+  const onDestory = async () => {
+    await destroy();
     getData();
   };
 
-  const resetTable = async () => {
-    if (window.confirm('确定删号？')) {
-      await destroy();
-      getData();
-    }
+  const onClose = () => {
+    curCell = null;
+    dialogOpen = false;
   };
+
+  const onOk = async () => {
+    await handleMark(curCell);
+    getData();
+  };
+  const date = dayjs().format('YYYY-MM-DD');
 </script>
 
 <slot>
@@ -27,8 +44,11 @@
     </div>
   </div>
   <div class="record-list-container">
-    <Record {recordList} destroy={resetTable} />
+    <Record {recordList} {onDestory} />
   </div>
+  <Dialog open={dialogOpen} {onOk} {onClose}>
+    <div>{message}</div>
+  </Dialog>
 </slot>
 
 <style>

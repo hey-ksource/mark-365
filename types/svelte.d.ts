@@ -10,8 +10,12 @@ declare module 'src/components/*' {
 }
 
 declare module '@smui/*' {
-  const Label: any;
-  const Segment: any;
-  export { Label, Segment };
+  const Label: SvelteComponent;
+  const Segment: SvelteComponent;
+  const Content: SvelteComponent;
+  const Actions: SvelteComponent;
+  const InitialFocus: any;
+
+  export { Label, Segment, Content, Actions, InitialFocus };
   export default SvelteComponent;
 }

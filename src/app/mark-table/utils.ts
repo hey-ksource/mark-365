@@ -1,4 +1,4 @@
-import availableCellRangeListMap from 'src/app/mark-table/available-cell-config.ts';
+import { availableCellRangeListMap } from 'src/app/mark-table/config';
 
 const emptyRowList = new Array(21).fill(new Array(25).fill(null));
 

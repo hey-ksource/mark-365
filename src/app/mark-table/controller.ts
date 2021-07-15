@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import storage from 'src/storage';
-import { createRowList } from 'src/app/mark-table/utils.ts';
+import { createRowList } from 'src/app/mark-table/utils';
 
 export const getConfig = async (name: string) => {
   const configList = await storage.markConfig.getAll();
@@ -73,26 +73,21 @@ export const destroy = () => {
 };
 
 export const handleMark = (cell: IMark) => {
-  if (cell.isMarked) return;
   const date = dayjs().format('YYYY-MM-DD');
-  const message = `${date} 存 ¥ ${cell.money}`;
+  const mark: IMark = {
+    ...cell,
+    isMarked: true,
+    date
+  };
 
-  return new Promise(resolve => {
-    if (window.confirm(message)) {
-      const mark: IMark = {
-        ...cell,
-        isMarked: true,
-        date
-      };
-
-      storage.mark365.updateItem(mark).then(resolve);
-    }
-  });
+  return storage.mark365.updateItem(mark);
 };
 
 export const autoMark = async () => {
   const beginDate = dayjs('2021-05-07');
   const dataList = await storage.mark365.getAll();
+
+  const promiseList: Promise<void>[] = [];
 
   dataList.forEach((data: IMark, index: number) => {
     if (index < 69) {
@@ -101,7 +96,8 @@ export const autoMark = async () => {
         isMarked: true,
         date: beginDate.add(index, 'day').format('YYYY-MM-DD')
       };
-      storage.mark365.updateItem(mark);
+      promiseList.push(storage.mark365.updateItem(mark));
     }
   });
+  return Promise.all(promiseList);
 };

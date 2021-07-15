@@ -1,7 +1,17 @@
 <script lang="ts">
   import MarkTable from 'src/app/mark-table';
+  import Footer from 'src/app/footer';
 </script>
 
-<slot>
+<div class="content">
   <MarkTable />
-</slot>
+  <Footer />
+</div>
+
+<style>
+  .content {
+    margin: 0 auto;
+    padding: 20px;
+    width: 1366px;
+  }
+</style>

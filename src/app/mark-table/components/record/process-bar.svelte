@@ -73,6 +73,7 @@
     height: 100%;
     overflow: hidden;
     animation: fund-bg-move 5s linear infinite;
+    transition: all 0.5s linear;
   }
   .mask {
     position: absolute;
