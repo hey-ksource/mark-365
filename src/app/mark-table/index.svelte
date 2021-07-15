@@ -16,7 +16,7 @@
   let recordList: IMark[];
   let loading = true;
   let step = 1;
-  let showAutoMark = false;
+  let showAutoMark = localStorage.getItem('beginDate');
 
   const init = async () => {
     rowList = await initRowList();
@@ -48,7 +48,7 @@
   getData();
 </script>
 
-{#if showAutoMark}<Button on:click={onClickAutoMark}>补卡</Button>{/if}
+{#if showAutoMark}<Button on:click={onClickAutoMark}>刷数据</Button>{/if}
 
 <slot>
   <div class="mark-table-container">

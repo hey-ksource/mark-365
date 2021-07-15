@@ -84,13 +84,15 @@ export const handleMark = (cell: IMark) => {
 };
 
 export const autoMark = async () => {
-  const beginDate = dayjs('2021-05-07');
+  const beginDate = dayjs(localStorage.getItem('beginDate'));
+  const date = dayjs();
+  const diff = date.diff(beginDate, 'day');
   const dataList = await storage.mark365.getAll();
 
   const promiseList: Promise<void>[] = [];
 
   dataList.forEach((data: IMark, index: number) => {
-    if (index < 69) {
+    if (index <= diff) {
       const mark: IMark = {
         ...data,
         isMarked: true,
