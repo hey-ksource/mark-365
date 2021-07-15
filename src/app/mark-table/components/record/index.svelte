@@ -49,7 +49,7 @@
     <div
       class="record-item"
       in:fly={{
-        y: 50,
+        x: 100,
         duration: 30 * (list.length - index),
         delay: 30 * index
       }}

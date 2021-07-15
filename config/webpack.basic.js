@@ -8,8 +8,7 @@ const resolve = target => path.resolve(__dirname, '..', target);
 module.exports = {
   entry: resolve('src'),
   output: {
-    path: resolve('dist'),
-    filename: '[name].[hash:8].js'
+    path: resolve('docs')
   },
   resolve: {
     alias: {

@@ -4,7 +4,8 @@
   "description": "Mark 一下",
   "main": "src/index.ts",
   "scripts": {
-    "start": "NODE_ENV=development webpack server --config config/webpack.dev.js --open"
+    "start": "NODE_ENV=development webpack server --config config/webpack.dev.js --open",
+    "build": "NODE_ENV=production webpack --config config/webpack.prod.js "
   },
   "keywords": [],
   "author": "",
