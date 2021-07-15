@@ -2,6 +2,7 @@
   import Guide from './components/guide/index.svelte';
   import TableRecord from './table-record.svelte';
   import Loading from 'src/components/loading.svelte';
+  import Footer from 'src/app/footer';
   import {
     autoMark,
     initRowList,
@@ -49,21 +50,27 @@
 
 {#if showAutoMark}<Button on:click={onClickAutoMark}>补卡</Button>{/if}
 
-<div class="mark-table-container">
-  {#if loading}
-    <Loading />
+<slot>
+  <div class="mark-table-container">
+    {#if loading}
+      <Loading />
+    {/if}
+    {#if rowList.length === 0}
+      <Guide onSelete={seleteStep} {onStart} />
+    {:else}
+      <TableRecord {rowList} {recordList} {getData} />
+    {/if}
+  </div>
+  {#if rowList.length !== 0}
+    <Footer />
   {/if}
-  {#if rowList.length === 0}
-    <Guide onSelete={seleteStep} {onStart} />
-  {:else}
-    <TableRecord {rowList} {recordList} {getData} />
-  {/if}
-</div>
+</slot>
 
 <style>
   .mark-table-container {
     display: flex;
     margin: 0 auto;
     height: 768px;
+    width: 100%;
   }
 </style>

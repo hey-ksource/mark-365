@@ -63,7 +63,6 @@
     flex: 0 0 230px;
     margin-left: 20px;
     padding-right: 10px;
-    height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
   }

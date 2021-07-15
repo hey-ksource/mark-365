@@ -1,7 +1,7 @@
 /* Theme colors. */
 :root {
   --mdc-segmented-button-selected-ink-color: #FFF;
-  --mdc-segmented-button-unselected-ink-color: rgb(var(--text-color));
+  --mdc-segmented-button-unselected-ink-color: rgb(var(--text-minor));
   --mdc-segmented-button-selected-container-fill-color: rgb(var(--primary-color));
   --mdc-ripple-color: rgb(var(--primary-color));
   --mdc-theme-primary: rgb(var(--primary-color));

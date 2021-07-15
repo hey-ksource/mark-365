@@ -26,7 +26,7 @@
 </script>
 
 <div class="guide-container">
-  <div class="guide-item">365 天，每天多</div>
+  <div class="guide-item">每天多存</div>
   <div class="guide-item">
     <SegmentedButton
       segments={options}
@@ -43,12 +43,12 @@
       </Segment>
     </SegmentedButton>
   </div>
-  <div class="guide-item">将有</div>
+  <div class="guide-item">365 天将有</div>
   <div class="guide-item total">
     ¥ {total}
   </div>
   <div class="guide-item">
-    <Button variant="raised" on:click={onStart}>
+    <Button variant="raised" on:click={onStart} style="width: 204px;">
       <Label>安排</Label>
     </Button>
   </div>
@@ -64,9 +64,13 @@
     font-size: 18px;
     line-height: 1;
     --mdc-typography-button-font-size: 18px;
+    color: rgb(var(--text-minor));
   }
-  .guide-item {
-    margin: 15px 0;
+  .guide-item:first-child {
+    margin-bottom: 10px;
+  }
+  .guide-item + .guide-item {
+    margin-bottom: 30px;
   }
   .total {
     color: rgb(var(--primary-color));
