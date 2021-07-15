@@ -4,9 +4,9 @@
 每天只需点一下，可自动累加出总额。
 
 #### 技术栈
-SvelteJs
-Svelte Material UI
-TypeScript
-CSS
-indexedDB
-Webpack
+`SvelteJs`
+`Svelte Material UI`
+`TypeScript`
+`CSS`
+`indexedDB`
+`Webpack`
