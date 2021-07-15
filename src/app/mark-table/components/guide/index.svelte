@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import SegmentedButton, { Segment } from '@smui/segmented-button';
   import Button from '@smui/button';
   import { Label } from '@smui/common';
@@ -28,6 +29,9 @@
     selectedStep = segment;
     onSelete(segment.value);
   };
+  onMount(() => {
+    onSelete(selectedStep.value);
+  });
 </script>
 
 <div class="guide-container">
