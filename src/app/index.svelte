@@ -10,6 +10,7 @@
   .content {
     margin: 0 auto;
     padding: 20px;
-    width: 1366px;
+    min-width: 320px;
+    max-width: 1366px;
   }
 </style>

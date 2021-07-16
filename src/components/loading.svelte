@@ -38,6 +38,6 @@
     margin-bottom: 20px;
   }
   * :global(.loading circle) {
-    transition: stroke 0.3s;
+    transition: stroke 2s;
   }
 </style>

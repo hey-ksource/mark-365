@@ -54,7 +54,7 @@
     height: 100%;
     color: #fff;
     font-size: 12px;
-    transition: all 0.2s;
+    transition: all 0.3s;
   }
 
   .cell-content.is-marked {

@@ -53,7 +53,10 @@ declare module 'src/storage/crud' {
 declare module 'src/storage/mark-365' {
   const addItem: (data: IStorageData) => Promise<void>;
   const deleteItem: (primaryKey: number) => Promise<void>;
-  const updateItem: (data: IStorageData, primaryKey: number) => Promise<void>;
+  const updateItem: (
+    data: IStorageData,
+    primaryKey: number
+  ) => Promise<Promise<void>>;
   const getItem: (partialData: IStorageData) => Promise<Promise<IStorageData>>;
   const getAll: () => Promise<IStorageData[]>;
   const clear: () => Promise<void>;
@@ -71,10 +74,15 @@ declare module 'src/storage/mark-365' {
 declare module 'src/storage/mark-config' {
   const addItem: (data: IStorageData) => Promise<void>;
   const getAll: () => Promise<IStorageData[]>;
+  const updateItem: (
+    data: IStorageData,
+    primaryKey: number
+  ) => Promise<Promise<void>>;
   const clear: () => Promise<void>;
   const markConfig = {
     addItem,
     getAll,
+    updateItem,
     clear
   };
   export default markConfig;

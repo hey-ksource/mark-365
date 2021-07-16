@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import SegmentedButton, { Segment } from '@smui/segmented-button';
   import Button from '@smui/button';
-  import { Label } from '@smui/common';
 
-  export let onSelete = (value: number) => {};
+  export let step = 1;
+  export let setStep = (step: number) => {};
   export let onStart = () => {};
 
   const options = [
@@ -21,17 +20,8 @@
       value: 1
     }
   ];
-  let selectedStep: IObj = options[2];
-  $: step = selectedStep.value;
+  $: selectedStep = options.find(o => o.value === step);
   $: total = ((step + step * 365) * 365) / 2;
-
-  const handleSelect = (segment: IObj) => {
-    selectedStep = segment;
-    onSelete(segment.value);
-  };
-  onMount(() => {
-    onSelete(selectedStep.value);
-  });
 </script>
 
 <div class="guide-container">
@@ -45,10 +35,10 @@
     >
       <Segment
         {segment}
-        on:click={() => handleSelect(segment)}
+        on:click={() => setStep(segment.value)}
         title={segment.value}
       >
-        <Label>{segment.label}</Label>
+        {segment.label}
       </Segment>
     </SegmentedButton>
   </div>
@@ -58,7 +48,7 @@
   </div>
   <div class="guide-item">
     <Button variant="raised" on:click={onStart} style="width: 204px;">
-      <Label>安排</Label>
+      安排
     </Button>
   </div>
 </div>

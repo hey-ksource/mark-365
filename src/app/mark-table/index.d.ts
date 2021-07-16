@@ -5,7 +5,10 @@ interface ILrc {
   style: IStyle;
   lrc: string;
 }
-
+interface IConfig {
+  name: string;
+  value: string | number;
+}
 declare module 'src/app/mark-table/controller' {
   const initRowList: () => IMark[][];
   const getRowList: () => Promise<IMark[][]>;
@@ -13,7 +16,7 @@ declare module 'src/app/mark-table/controller' {
   const destroy: () => void;
   const handleMark: (cell: IMark) => Promise<void>;
   const setConfig: (data: IStorageData) => Promise<void>;
-  const getConfig: (configName: string) => Promise<string | number>;
+  const getConfig: (configName: string) => Promise<IConfig>;
   const autoMark: () => void;
 
   export {

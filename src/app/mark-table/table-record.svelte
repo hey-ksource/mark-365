@@ -8,6 +8,9 @@
   export let rowList: Array<IMark[]> = [];
   export let recordList: IMark[] = [];
   export let getData = () => {};
+  export let step: number;
+  export let setStep = (step: number) => {};
+
   let curCell: IMark = null;
   let dialogOpen = false;
   let message = '';
@@ -34,26 +37,27 @@
     await handleMark(curCell);
     getData();
   };
+
   const date = dayjs().format('YYYY-MM-DD');
 </script>
 
-<slot>
-  <div class="mark-table-container">
-    <div class="table-container">
-      <Table {rowList} {onClickCell} />
-    </div>
+<div class="table-record-container">
+  <div class="table-container">
+    <Table {rowList} {onClickCell} />
   </div>
+
   <div class="record-list-container">
-    <Record {recordList} {onDestory} />
+    <Record {recordList} {onDestory} {setStep} {step} />
   </div>
   <Dialog open={dialogOpen} {onOk} {onClose}>
     <div>{message}</div>
   </Dialog>
-</slot>
+</div>
 
 <style>
-  .mark-table-container {
+  .table-record-container {
     flex: 1;
+    display: flex;
   }
   .table-container {
     width: 100%;
@@ -65,5 +69,16 @@
     padding-right: 10px;
     overflow-x: hidden;
     overflow-y: scroll;
+  }
+
+  @media (max-width: 1023px) {
+    .table-record-container {
+      flex-direction: column;
+      width: 100%;
+    }
+    .record-list-container {
+      margin-top: 20px;
+      margin-left: 0;
+    }
   }
 </style>

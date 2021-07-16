@@ -4,16 +4,14 @@ import { createRowList } from 'src/app/mark-table/utils';
 
 export const getConfig = async (name: string) => {
   const configList = await storage.markConfig.getAll();
-  const config =
-    configList.find((config: IStorageData) => config.name === name) || {};
-  return config.value;
+  return configList.find((config: IStorageData) => config.name === name) || {};
 };
 export const setConfig = async (data: IStorageData) => {
   return Object.keys(data)
     .map(key => [key, data[key]])
     .reduce(async (accPromise, keyValue) => {
       const acc = await accPromise;
-      const addPromise = await storage.markConfig.addItem({
+      const addPromise = await storage.markConfig.updateItem({
         name: keyValue[0],
         value: keyValue[1]
       });
@@ -22,7 +20,7 @@ export const setConfig = async (data: IStorageData) => {
 };
 
 export const initRowList: () => Promise<IMark[][]> = async () => {
-  const step = await getConfig('step');
+  const { value: step } = await getConfig('step');
   const markList = await storage.mark365.getAll();
   if (markList.length > 0) return getRowList();
 
@@ -69,7 +67,7 @@ export const getRecordList: () => Promise<IMark[]> = async () => {
 };
 
 export const destroy = () => {
-  return storage.clear();
+  return storage.mark365.clear();
 };
 
 export const handleMark = (cell: IMark) => {

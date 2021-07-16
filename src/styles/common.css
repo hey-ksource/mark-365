@@ -11,6 +11,7 @@ body {
 }
 * {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 #foreground {
   position: fixed;
@@ -33,6 +34,9 @@ body {
   border-radius: 2px;
   opacity: .8;
 }
-a {
-  text-decoration: none;
+@media (max-width: 767px) {
+  body {
+    transform: rotate(90deg);
+    overflow: auto;
+  }
 }

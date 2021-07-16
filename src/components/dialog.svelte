@@ -1,6 +1,6 @@
 <script lang="ts">
   import Dialog, { Content, Actions, InitialFocus } from '@smui/dialog';
-  import Button, { Label } from '@smui/button';
+  import Button from '@smui/button';
   export let onOk = () => {};
   export let onClose = () => {};
   export let open = false;
@@ -11,12 +11,8 @@
     <slot />
   </Content>
   <Actions>
-    <Button on:click={onClose}>
-      <Label>取消</Label>
-    </Button>
-    <Button on:click={onOk} use={[InitialFocus]}>
-      <Label>确定</Label>
-    </Button>
+    <Button on:click={onClose}>取消</Button>
+    <Button on:click={onOk} use={[InitialFocus]}>确定</Button>
   </Actions>
 </Dialog>
 

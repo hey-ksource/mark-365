@@ -1,13 +1,15 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
-  import Button, { Label } from '@smui/button';
+  import Button from '@smui/button';
   import ProcessBar from './process-bar.svelte';
   import { getConfig } from 'src/app/mark-table/controller';
   import Dialog from 'src/components/dialog.svelte';
+
   export let recordList: IMark[] = [];
   export let onDestory = () => {};
+  export let setStep = (step: number) => {};
+  export let step = 1;
 
-  let step = 1;
   let dialogOpen = false;
   let message: string = null;
   $: list = recordList.sort((a, b) => {
@@ -28,14 +30,15 @@
   $: target = ((step + step * 365) * 365) / 2;
 
   const init = async () => {
-    const result = await getConfig('step');
-    step = Number(result);
+    const { value } = await getConfig('step');
+    setStep(Number(value));
   };
 
   const onClickDestory = () => {
     message = '确定删号重练？';
     dialogOpen = true;
   };
+
   const onClose = () => {
     message = null;
     dialogOpen = false;
@@ -43,41 +46,39 @@
   init();
 </script>
 
-<div class="record-list">
+<solt>
   <ProcessBar {total} {target} />
-  {#each list as record, index}
-    <div
-      class="record-item"
-      in:fly={{
-        x: 100,
-        duration: 30 * (list.length - index),
-        delay: 30 * index
-      }}
-    >
-      <div class="record-label">
-        {record.date}
+  <div class="record-list">
+    {#each list as record, index}
+      <div
+        class="record-item"
+        in:fly={{
+          x: 100,
+          duration: 30 * (list.length - index),
+          delay: 30 * index
+        }}
+      >
+        <div class="record-label">
+          {record.date}
+        </div>
+        <div class="record-money">
+          <span class="rmb-symbol">¥</span>
+          {record.money}
+        </div>
       </div>
-      <div class="record-money">
-        <span class="rmb-symbol">¥</span>
-        {record.money}
-      </div>
-    </div>
-  {/each}
-  <div class="btn-block">
-    <Button on:click={onClickDestory}>
-      <Label>删号重练</Label>
-    </Button>
+    {/each}
+  </div>
+  <div class="destory-btn">
+    <Button on:click={onClickDestory}>删号重练</Button>
   </div>
   <Dialog open={dialogOpen} onOk={onDestory} {onClose}>
     <div>{message}</div>
   </Dialog>
-</div>
+</solt>
 
 <style>
-  .record-item + .record-item {
-    margin-top: 15px;
-  }
   .record-item {
+    margin-bottom: 15px;
     display: flex;
     align-items: flex-end;
     background: #f9f4dc;
@@ -103,10 +104,18 @@
     font-weight: normal;
     color: rgb(var(--text-minor));
   }
-  .btn-block {
-    margin-top: 20px;
-  }
-  * :global(.btn-block button) {
+  * :global(.destory-btn button) {
     width: 100%;
+  }
+
+  @media (max-width: 1023px) {
+    .record-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .record-item {
+      flex: 0 0 180px;
+    }
   }
 </style>

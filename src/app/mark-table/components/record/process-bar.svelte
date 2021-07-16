@@ -1,16 +1,50 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   export let target = 1;
   export let total = 0;
+
+  const onResize = (node = document.body) => {
+    const width = node.clientWidth;
+    const processBar = node.querySelector('.process-bar');
+    const bgBar = node.querySelector('.bg-bar');
+    const mask = node.querySelector('.process-bar .mask');
+    if (width < 1024) {
+      processBar.style.width = `${width}px`;
+      bgBar.style.width = `${width}px`;
+      mask.style.width = `${width}px`;
+    } else {
+      processBar.style.width = `216px`;
+      bgBar.style.width = `216px`;
+      mask.style.width = `216px`;
+    }
+  };
+
+  const resize = (node: HTMLElement) => {
+    const _onResize = () => {
+      onResize(node);
+    };
+    window.addEventListener('resize', _onResize);
+    return {
+      destroy() {
+        window.removeEventListener('resize', _onResize);
+      }
+    };
+  };
+
+  onMount(() => {
+    onResize();
+  });
 </script>
 
-<div class="process-bar-container">
+<div class="process-bar-container" use:resize>
   <div class="process-bar">
     <div class="bg-bar">
       <div class="total">{total}</div>
       <div class="divide">/</div>
       <div class="target">{target}</div>
     </div>
-    <div class="total-bar" style="width: {(100 * total) / target}%">
+    <div class="total-bar" style="width: 50%">
+      <!-- <div class="total-bar" style="width: {(100 * total) / target}%"> -->
       <div class="mask">
         <div class="total">{total}</div>
         <div class="divide">/</div>
