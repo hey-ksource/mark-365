@@ -1,9 +1,9 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
   import Button from '@smui/button';
-  import ProcessBar from './process-bar.svelte';
+  import ProcessBar from 'src/app/mark-table/components/record/process-bar';
   import { getConfig } from 'src/app/mark-table/controller';
-  import Dialog from 'src/components/dialog.svelte';
+  import Dialog from 'src/components/dialog';
 
   export let recordList: IMark[] = [];
   export let onDestory = () => {};
@@ -113,9 +113,6 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-    }
-    .record-item {
-      flex: 0 0 180px;
     }
   }
 </style>

@@ -43,8 +43,7 @@
       <div class="divide">/</div>
       <div class="target">{target}</div>
     </div>
-    <div class="total-bar" style="width: 50%">
-      <!-- <div class="total-bar" style="width: {(100 * total) / target}%"> -->
+    <div class="total-bar" style="width: {(100 * total) / target}%">
       <div class="mask">
         <div class="total">{total}</div>
         <div class="divide">/</div>

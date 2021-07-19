@@ -37,6 +37,7 @@
   .row {
     display: flex;
     flex: 1;
+    min-height: 24px;
   }
   .row + .row {
     border-top: 1px solid rgb(var(--border-color));

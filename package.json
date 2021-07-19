@@ -18,6 +18,7 @@
     "@smui/dialog": "^4.2.0",
     "@smui/icon-button": "^4.2.0",
     "@smui/segmented-button": "^4.2.0",
+    "@smui/tooltip": "^4.2.0",
     "dayjs": "^1.10.6",
     "svelte": "^3.38.3",
     "svelte-check": "^2.2.0",

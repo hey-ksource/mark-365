@@ -1,9 +1,8 @@
 <script lang="ts">
-  import IconButton, { Icon } from '@smui/icon-button';
-
-  import { mdiGithub } from '@mdi/js';
-  import Svg from '@smui/common/Svg.svelte';
-  import Lrc from 'src/components/lrc/index.svelte';
+  import Tooltip, { Wrapper, Content } from '@smui/tooltip';
+  import Lrc from 'src/components/lrc';
+  import GithubIcon from 'src/components/icon/github';
+  import BatteryIcon from 'src/components/icon/battery';
 
   let color: string;
   const setColor = (value: string) => {
@@ -21,19 +20,17 @@
   </div>
 
   <div class="footer-item">
-    <IconButton
-      class="github-icon-button"
-      href="https://github.com/hey-ksource/mark"
-      target="_blank"
-    >
-      <Icon
-        component={Svg}
-        viewBox="0 0 24 24"
-        class="material-icons github-icon"
-      >
-        <path fill="currentColor" d={mdiGithub} />
-      </Icon>
-    </IconButton>
+    <GithubIcon href="https://github.com/hey-ksource/mark" target="_blank" />
+    <Wrapper rich>
+      <div role="button"><BatteryIcon /></div>
+      <Tooltip persistent>
+        <Content>
+          <div class="charge-tips">若能助你养成习惯</div>
+          <div class="charge-tips">不妨给我充个电</div>
+          <img src="assets/charge-qrcode.png" alt="qrcode" />
+        </Content>
+      </Tooltip>
+    </Wrapper>
   </div>
 
   <div class="footer-item">
@@ -60,17 +57,6 @@
     align-items: center;
     width: 100%;
   }
-  * :global(.footer-item .github-icon-button) {
-    margin-right: 10px;
-    padding: 0;
-    width: auto;
-    height: auto;
-    line-height: 0;
-  }
-  * :global(.github-icon) {
-    width: 24px;
-    height: 24px;
-  }
   .logo {
     font-size: 40px;
     font-weight: bold;
@@ -87,6 +73,12 @@
   .copyright::before {
     content: '©';
     margin-right: 5px;
+  }
+  .charge-tips {
+    color: rgb(var(--text-primary));
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
   }
 
   @media (max-width: 400px) {

@@ -1,12 +1,13 @@
 @import "./var.css";
 @import "./smui-theme.css";
+@import "./cover.css";
 body {
   margin: 0;
   padding: 0;
+  min-width: 768px;
   font-family: Microsoft YaHei;
   font-size: 14px;
   line-height: 1.5;
-  overflow-x: hidden;
   color: rgb(var(--text-primary));
 }
 * {
@@ -33,10 +34,4 @@ body {
   background: #cfcfcf;
   border-radius: 2px;
   opacity: .8;
-}
-@media (max-width: 767px) {
-  body {
-    transform: rotate(90deg);
-    overflow: auto;
-  }
 }

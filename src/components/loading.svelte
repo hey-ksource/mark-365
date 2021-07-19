@@ -1,7 +1,7 @@
 <script lang="ts">
   import CircularProgress from '@smui/circular-progress';
   import { fade } from 'svelte/transition';
-  import Lrc from './lrc/index.svelte';
+  import Lrc from './lrc';
   let color: string;
   const setColor = (value: string) => {
     color = value;

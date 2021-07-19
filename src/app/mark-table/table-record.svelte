@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Table from './components/table/index.svelte';
+  import Table from 'src/app/mark-table/components/table';
   import { destroy, handleMark } from 'src/app/mark-table/controller';
-  import Record from './components/record/index.svelte';
-  import Dialog from 'src/components/dialog.svelte';
+  import Record from 'src/app/mark-table/components/record';
+  import Dialog from 'src/components/dialog';
   import dayjs from 'dayjs';
 
   export let rowList: Array<IMark[]> = [];

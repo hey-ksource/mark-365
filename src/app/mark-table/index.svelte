@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Guide from './components/guide/index.svelte';
-  import TableRecord from './table-record.svelte';
-  import Loading from 'src/components/loading.svelte';
+  import Guide from 'src/app/mark-table/components/guide';
+  import TableRecord from 'src/app/mark-table/table-record';
+  import Loading from 'src/components/loading';
   import Footer from 'src/app/footer';
   import {
     autoMark,

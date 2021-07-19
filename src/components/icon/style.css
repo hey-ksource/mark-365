@@ -1,0 +1,8 @@
+.mdc-icon-button svg, .mdc-icon-button img {
+  width: 24px;
+  height: 26px;
+}
+
+.battery-icon .material-icons {
+  width: 22px;
+}
