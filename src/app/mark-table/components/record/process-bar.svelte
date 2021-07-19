@@ -3,18 +3,25 @@
   export let target = 1;
   export let total = 0;
 
-  const onResize = (node = document.body) => {
-    const width = node.clientWidth;
+  const onResize = (node: HTMLElement) => {
+    const bodyWidth = document.body.clientWidth;
     const processBar = node.querySelector('.process-bar');
     const bgBar = node.querySelector('.bg-bar');
     const mask = node.querySelector('.process-bar .mask');
-    if (width < 1024) {
+    if (bodyWidth < 1024) {
+      const width = bodyWidth - 50;
+      // @ts-ignore
       processBar.style.width = `${width}px`;
+      // @ts-ignore
       bgBar.style.width = `${width}px`;
+      // @ts-ignore
       mask.style.width = `${width}px`;
     } else {
+      // @ts-ignore
       processBar.style.width = `216px`;
+      // @ts-ignore
       bgBar.style.width = `216px`;
+      // @ts-ignore
       mask.style.width = `216px`;
     }
   };
@@ -32,7 +39,7 @@
   };
 
   onMount(() => {
-    onResize();
+    onResize(document.body);
   });
 </script>
 
