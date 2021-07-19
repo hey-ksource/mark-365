@@ -24,7 +24,7 @@
     return {
       style: {
         ...randomGetColor(),
-        width: type === 'prev' ? '350px' : '0px'
+        width: type === 'prev' ? '340px' : '0px'
       },
       lrc: randomGetLrc()
     };
@@ -89,8 +89,8 @@
 <style>
   .lrc-bar {
     position: relative;
-    width: 350px;
-    height: 36px;
+    width: 340px;
+    height: 32px;
     font-weight: bold;
     overflow: hidden;
     border-radius: 4px;
@@ -111,11 +111,11 @@
     top: 0;
     left: 0;
     z-index: 1;
-    width: 350px;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
+    width: 340px;
+    height: 100%;
+    line-height: 1;
   }
 </style>
