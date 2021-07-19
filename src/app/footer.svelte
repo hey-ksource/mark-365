@@ -3,6 +3,7 @@
   import Lrc from 'src/components/lrc';
   import GithubIcon from 'src/components/icon/github';
   import BatteryIcon from 'src/components/icon/battery';
+  import qrCode from 'assets/charge-qrcode.png';
 
   let color: string;
   const setColor = (value: string) => {
@@ -27,7 +28,7 @@
         <Content>
           <div class="charge-tips">若能助你养成习惯</div>
           <div class="charge-tips">不妨给我充个电</div>
-          <img src="assets/charge-qrcode.png" alt="qrcode" />
+          <img src={qrCode} alt="qrcode" />
         </Content>
       </Tooltip>
     </Wrapper>

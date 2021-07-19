@@ -47,7 +47,11 @@ module.exports = {
       },
       {
         test: /\.(jpeg|png)$/,
-        loader: 'url-loader'
+        loader: 'url-loader',
+        options: {
+          limit: 1024 * 10,
+          name: 'assets/[name].[ext]'
+        }
       },
       {
         test: /\.(css)$/,

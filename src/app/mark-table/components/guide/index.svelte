@@ -5,7 +5,6 @@
   export let step = 1;
   export let setStep = (step: number) => {};
   export let onStart = () => {};
-
   const options = [
     {
       label: '¥ 0.1',

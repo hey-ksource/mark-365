@@ -27,7 +27,7 @@
     rowList = await getRowList();
     recordList = await getRecordList();
     const { value } = await getConfig('step');
-    step = Number(value);
+    step = Number(value ?? 1);
     loading = false;
   };
   const setStep = (value: number) => {
