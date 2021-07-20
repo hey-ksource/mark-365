@@ -1,12 +1,18 @@
 <script lang="ts">
-  import Dialog, { Content, Actions, InitialFocus } from '@smui/dialog';
+  import Dialog, { Content, Actions, InitialFocus, Title } from '@smui/dialog';
   import Button from '@smui/button';
   export let onOk = () => {};
   export let onClose = () => {};
+  export let title = '';
   export let open = false;
 </script>
 
 <Dialog bind:open on:MDCDialog:closed={onClose}>
+  {#if title}
+    <Title class="dialog-title">
+      {title}
+    </Title>
+  {/if}
   <Content>
     <slot />
   </Content>

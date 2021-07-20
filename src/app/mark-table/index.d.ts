@@ -17,7 +17,7 @@ declare module 'src/app/mark-table/controller' {
   const handleMark: (cell: IMark) => Promise<void>;
   const setConfig: (data: IStorageData) => Promise<void>;
   const getConfig: (configName: string) => Promise<IConfig>;
-  const autoMark: () => void;
+  const autoMark: (beginDate: string) => Promise<void>;
 
   export {
     initRowList,

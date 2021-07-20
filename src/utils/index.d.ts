@@ -1,4 +1,4 @@
-declare module 'src/utils/default-value.ts' {
+declare module 'src/utils/default-value' {
   const noop: () => void;
   export { noop };
 }

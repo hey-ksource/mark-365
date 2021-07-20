@@ -6,6 +6,7 @@ export const getConfig = async (name: string) => {
   const configList = await storage.markConfig.getAll();
   return configList.find((config: IStorageData) => config.name === name) || {};
 };
+
 export const setConfig = async (data: IStorageData) => {
   return Object.keys(data)
     .map(key => [key, data[key]])
@@ -81,12 +82,11 @@ export const handleMark = (cell: IMark) => {
   return storage.mark365.updateItem(mark);
 };
 
-export const autoMark = async () => {
-  const beginDate = dayjs(localStorage.getItem('beginDate'));
+export const autoMark = async (beginDate: string) => {
+  const _beginDate = dayjs(beginDate);
   const date = dayjs();
   const diff = date.diff(beginDate, 'day');
   const dataList = await storage.mark365.getAll();
-
   const promiseList: Promise<void>[] = [];
 
   dataList.forEach((data: IMark, index: number) => {
@@ -94,7 +94,7 @@ export const autoMark = async () => {
       const mark: IMark = {
         ...data,
         isMarked: true,
-        date: beginDate.add(index, 'day').format('YYYY-MM-DD')
+        date: _beginDate.add(index, 'day').format('YYYY-MM-DD')
       };
       promiseList.push(storage.mark365.updateItem(mark));
     }

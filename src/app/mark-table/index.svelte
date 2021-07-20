@@ -1,24 +1,24 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import Guide from 'src/app/mark-table/components/guide';
   import TableRecord from 'src/app/mark-table/table-record';
   import Loading from 'src/components/loading';
   import Footer from 'src/app/footer';
   import {
-    autoMark,
     initRowList,
     getRowList,
     getRecordList,
     setConfig,
     getConfig
   } from 'src/app/mark-table/controller';
-  import Button from '@smui/button';
 
   let rowList: Array<IMark[]> = [];
   let recordList: IMark[];
   let loading = true;
   let step = 1;
-  let showAutoMark = Boolean(localStorage.getItem('beginDate'));
 
+  const startLoading = () => (loading = true);
+  const finishLoading = () => (loading = false);
   const init = async () => {
     rowList = await initRowList();
     recordList = await getRecordList();
@@ -35,25 +35,16 @@
   };
 
   const onStart = async () => {
-    loading = true;
+    startLoading();
     await setConfig({ step });
     await init();
-    loading = false;
+    finishLoading();
   };
 
-  const onClickAutoMark = async () => {
-    loading = true;
-    await autoMark();
-    await getData();
-    loading = false;
-    showAutoMark = false;
-    localStorage.setItem('beginDate', '');
-  };
-
-  getData();
+  onMount(() => {
+    getData();
+  });
 </script>
-
-{#if showAutoMark}<Button on:click={onClickAutoMark}>刷数据</Button>{/if}
 
 <slot>
   <div class="mark-table-container">
@@ -63,7 +54,15 @@
     {#if rowList.length === 0}
       <Guide {setStep} {onStart} {step} />
     {:else}
-      <TableRecord {rowList} {recordList} {getData} {setStep} {step} />
+      <TableRecord
+        {rowList}
+        {recordList}
+        {getData}
+        {setStep}
+        {step}
+        {startLoading}
+        {finishLoading}
+      />
     {/if}
   </div>
   {#if rowList.length !== 0}

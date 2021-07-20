@@ -1,3 +1,7 @@
 .mdc-tooltip--rich .mdc-tooltip__surface {
   max-height: unset ;
 }
+
+.mdc-dialog .mdc-dialog__title.dialog-title {
+  color: rgb(var(--text-primary));
+}

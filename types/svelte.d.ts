@@ -15,8 +15,10 @@ declare module '@smui/*' {
   const Content: SvelteComponent;
   const Actions: SvelteComponent;
   const Wrapper: SvelteComponent;
+  const Title: SvelteComponent;
+
   const InitialFocus: any;
 
-  export { Icon, Segment, Content, Actions, InitialFocus, Wrapper };
+  export { Icon, Segment, Content, Actions, InitialFocus, Wrapper, Title };
   export default SvelteComponent;
 }

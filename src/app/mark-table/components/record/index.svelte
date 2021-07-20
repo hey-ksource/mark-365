@@ -1,17 +1,28 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { fly } from 'svelte/transition';
   import Button from '@smui/button';
   import ProcessBar from 'src/app/mark-table/components/record/process-bar';
   import { getConfig } from 'src/app/mark-table/controller';
   import Dialog from 'src/components/dialog';
+  import DatePicker from 'src/components/date-picker';
+  import { autoMark } from 'src/app/mark-table/controller';
+  import { noop } from 'src/utils/default-value';
 
   export let recordList: IMark[] = [];
   export let onDestory = () => {};
   export let setStep = (step: number) => {};
   export let step = 1;
+  export let getData: INoop = noop;
+  export let startLoading: INoop = noop;
+  export let finishLoading: INoop = noop;
 
-  let dialogOpen = false;
-  let message: string = null;
+  let destoryDialogOpen = false;
+  let autoMarkDialogOpen = false;
+
+  let destoryMessage: string = null;
+  let autoMarkBeginDate: string = null;
+
   $: list = recordList.sort((a, b) => {
     if (b.date > a.date) {
       return 1;
@@ -35,15 +46,40 @@
   };
 
   const onClickDestory = () => {
-    message = '确定删号重练？';
-    dialogOpen = true;
+    destoryMessage = '确定删号重练？';
+    destoryDialogOpen = true;
   };
 
-  const onClose = () => {
-    message = null;
-    dialogOpen = false;
+  const onCloseDestoryDialog = () => {
+    destoryMessage = null;
+    destoryDialogOpen = false;
   };
-  init();
+
+  const onClickAutoMark = () => {
+    autoMarkDialogOpen = true;
+  };
+
+  const onCloseAutoMark = () => {
+    autoMarkBeginDate = null;
+    autoMarkDialogOpen = false;
+  };
+
+  const onOkAutoMark = async () => {
+    if (!autoMarkBeginDate) return;
+    startLoading();
+    await autoMark(autoMarkBeginDate);
+    await getData();
+    finishLoading();
+    onCloseAutoMark();
+  };
+
+  const onChangeDate = (value: string) => {
+    autoMarkBeginDate = value;
+  };
+
+  onMount(() => {
+    init();
+  });
 </script>
 
 <solt>
@@ -68,11 +104,26 @@
       </div>
     {/each}
   </div>
-  <div class="destory-btn">
+  <div class="block-btn">
+    <Button on:click={onClickAutoMark}>君子协议</Button>
+  </div>
+  <div class="block-btn">
     <Button on:click={onClickDestory}>删号重练</Button>
   </div>
-  <Dialog open={dialogOpen} onOk={onDestory} {onClose}>
-    <div>{message}</div>
+  <Dialog
+    open={destoryDialogOpen}
+    onOk={onDestory}
+    onClose={onCloseDestoryDialog}
+  >
+    <div>{destoryMessage}</div>
+  </Dialog>
+  <Dialog
+    open={autoMarkDialogOpen}
+    onOk={onOkAutoMark}
+    onClose={onCloseAutoMark}
+    title="从哪天开始补卡"
+  >
+    <DatePicker onChange={onChangeDate} value={autoMarkBeginDate} />
   </Dialog>
 </solt>
 
@@ -104,7 +155,10 @@
     font-weight: normal;
     color: rgb(var(--text-minor));
   }
-  * :global(.destory-btn button) {
+  .block-btn {
+    margin-bottom: 15px;
+  }
+  * :global(.block-btn button) {
     width: 100%;
   }
 

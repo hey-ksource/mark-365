@@ -3,13 +3,16 @@
   import { destroy, handleMark } from 'src/app/mark-table/controller';
   import Record from 'src/app/mark-table/components/record';
   import Dialog from 'src/components/dialog';
+  import { noop } from 'src/utils/default-value';
   import dayjs from 'dayjs';
 
   export let rowList: Array<IMark[]> = [];
   export let recordList: IMark[] = [];
-  export let getData = () => {};
+  export let getData: INoop = noop;
   export let step: number;
   export let setStep = (step: number) => {};
+  export let startLoading: INoop;
+  export let finishLoading: INoop;
 
   let curCell: IMark = null;
   let dialogOpen = false;
@@ -47,7 +50,15 @@
   </div>
 
   <div class="record-list-container">
-    <Record {recordList} {onDestory} {setStep} {step} />
+    <Record
+      {recordList}
+      {onDestory}
+      {setStep}
+      {step}
+      {getData}
+      {startLoading}
+      {finishLoading}
+    />
   </div>
   <Dialog open={dialogOpen} {onOk} {onClose}>
     <div>{message}</div>
