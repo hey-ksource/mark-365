@@ -37,7 +37,7 @@
       next = createLrc('next');
       widthPercent = 0;
       setColor(next.style['background-color']);
-    }, 4000);
+    }, 5000);
 
     widthTimer = setInterval(() => {
       widthPercent += 0.8;
